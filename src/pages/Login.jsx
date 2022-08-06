@@ -3,8 +3,6 @@ import propTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
 
-const buttonMinLength = 3;
-
 class Login extends Component {
   state = {
     buttonDisabled: true,
@@ -13,8 +11,9 @@ class Login extends Component {
   }
 
   isButtonDisabled = ({ target }) => {
-    this.setState({ [target.name]: target.value }, () => {
+    this.setState({ username: target.value }, () => {
       const { username } = this.state;
+      const buttonMinLength = 3;
       const disabled = username.length < buttonMinLength;
       this.setState({
         buttonDisabled: disabled,
