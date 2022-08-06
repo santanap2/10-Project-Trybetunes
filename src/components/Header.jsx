@@ -31,7 +31,7 @@ class Header extends Component {
     const displayLoading = loading === true;
 
     return (
-      <header data-testid="header-component">
+      <header data-testid="header-component" className="header">
         <h1>TrybeTunes</h1>
         <div>
           <p data-testid="header-user-name">
@@ -40,8 +40,12 @@ class Header extends Component {
               `Seja bem vindo ${username}`
             )}
           </p>
-          <Link></Link>
         </div>
+        <nav className="nav-header">
+          <Link data-testid="link-to-search" to="/search">Search</Link>
+          <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
+          <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+        </nav>
       </header>
     );
   }
