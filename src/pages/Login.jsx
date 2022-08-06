@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
 
 class Login extends Component {
   state = {
@@ -35,32 +35,48 @@ class Login extends Component {
   render() {
     const { buttonDisabled, loading } = this.state;
     return (
-      <div data-testid="page-login">
-        <div>
-          <h1>Faça seu Login</h1>
-          <form>
-            <label htmlFor="login-input">
-              Nome de usuário
-              <input
-                data-testid="login-name-input"
-                type="text"
-                id="login-input"
-                name="username"
-                onChange={ this.isButtonDisabled }
-              />
-            </label>
+      <div
+        data-testid="page-login"
+        className="login-div"
+      >
+        {
+          loading ? (
+            <div className="loading-div">
+              <div className="loading-big" />
+              Carregando...
+            </div>
+          ) : (
+            <div className="login-div">
+              <h1 className="login-title">TrybeTunes</h1>
+              <form className="login-form">
+                <label
+                  htmlFor="login-input"
+                  className="label-input"
+                >
+                  Nome de usuário
+                  <input
+                    data-testid="login-name-input"
+                    type="text"
+                    id="login-input"
+                    name="username"
+                    className="text-input"
+                    onChange={ this.isButtonDisabled }
+                  />
+                </label>
 
-            <button
-              data-testid="login-submit-button"
-              type="button"
-              disabled={ buttonDisabled }
-              onClick={ this.onClickLoginButton }
-            >
-              Entrar
-            </button>
-          </form>
-          {loading && <Loading />}
-        </div>
+                <button
+                  data-testid="login-submit-button"
+                  type="button"
+                  className="login-button"
+                  disabled={ buttonDisabled }
+                  onClick={ this.onClickLoginButton }
+                >
+                  Entrar
+                </button>
+              </form>
+            </div>
+          )
+        }
       </div>
     );
   }
