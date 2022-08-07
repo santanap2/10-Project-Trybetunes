@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
-// import Loading from '../components/Loading';
+import Loading from '../components/Loading';
 
 class Login extends Component {
   state = {
@@ -40,12 +40,7 @@ class Login extends Component {
         className="login-div"
       >
         {
-          loading ? (
-            <div className="loading-div">
-              <div className="loading-big" />
-              Carregando...
-            </div>
-          ) : (
+          loading ? <Loading /> : (
             <div className="login-div">
               <h1 className="login-title">TrybeTunes</h1>
               <form className="login-form">
@@ -67,7 +62,7 @@ class Login extends Component {
                 <button
                   data-testid="login-submit-button"
                   type="button"
-                  className="login-button"
+                  className="button"
                   disabled={ buttonDisabled }
                   onClick={ this.onClickLoginButton }
                 >

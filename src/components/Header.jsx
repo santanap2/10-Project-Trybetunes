@@ -32,19 +32,49 @@ class Header extends Component {
 
     return (
       <header data-testid="header-component" className="header">
-        <h1>TrybeTunes</h1>
-        <div>
-          <p data-testid="header-user-name">
-            { displayLoading ? (
-              <Loading />) : (
-              `Seja bem vindo ${username}`
-            )}
-          </p>
+        <div className="welcome-title">
+          <Link to="/" className="title">
+            TrybeTunes
+          </Link>
+          <div>
+            <p data-testid="header-user-name" className="welcome">
+              { displayLoading ? <Loading /> : (
+                <div className="user-div">
+                  <p>{username}</p>
+                  <img
+                    src="https://www.freeiconspng.com/thumbs/profile-icon-png/am-a-19-year-old-multimedia-artist-student-from-manila--21.png"
+                    alt="profile-logo"
+                    width="30px"
+                  />
+                </div>
+              )}
+            </p>
+          </div>
         </div>
         <nav className="nav-header">
-          <Link data-testid="link-to-search" to="/search">Search</Link>
-          <Link data-testid="link-to-favorites" to="/favorites">Favorites</Link>
-          <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+          <Link
+            data-testid="link-to-search"
+            to="/search"
+            className="link"
+          >
+            Pesquisa
+          </Link>
+
+          <Link
+            data-testid="link-to-favorites"
+            to="/favorites"
+            className="link"
+          >
+            Favoritas
+          </Link>
+
+          <Link
+            data-testid="link-to-profile"
+            to="/profile"
+            className="link"
+          >
+            Perfil
+          </Link>
         </nav>
       </header>
     );

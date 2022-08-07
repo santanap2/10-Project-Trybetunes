@@ -60,13 +60,14 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
   width: 300px;
   font-size: 16px;
   margin: 10px 0;
+  text-align: center;
 }
 
 .text-input:hover {
   background-color: rgb(230, 255, 230);
 }
 
-.login-button{
+.button{
   width: 180px;
   padding: 10px;
   border-radius: 10px;
@@ -80,38 +81,25 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
   margin: 30px 0 0 0;
 }
 
-.login-button:disabled {
+.button:disabled {
   opacity: 30%;
 }
 
-.login-button:hover {
+.button:hover {
   background-color: rgb(230, 255, 230);
   color: rgb(25, 20, 20);
   box-shadow: 0 0 10px black;
 }
 
 .loading-div {
-  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
   font-weight: 800;
   text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.600);
 }
 
-.loading-big {
-  display: flex;
-  justify-content: center;
-}
-
-.loading-big::after{
-  content: "";
-  width: 40px;
-  height: 40px;
-  border: 10px solid rgb(231, 231, 231);
-  border-top-color: rgb(25, 20, 20);
-  border-radius: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  animation: loading 1s linear infinite;
-  margin: 20px 0;
-}
 
 .loading-small {
   display: flex;
@@ -136,23 +124,166 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
 }
 
 .header {
-  background-color: rgb(105, 105, 105);
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  padding: 20px;
+  background-color: rgb(30, 215, 96);
+  color: rgb(25, 20, 20);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 0 0 20px 0;
+  margin: 0 0 60px 0;
+}
+
+.welcome-title {
+  padding: 20px 5px;
+  display: flex;
+  flex: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-size: 50px;
+  text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.600);
+  text-decoration: none;
+  color: rgb(25, 20, 20);
+  font-weight: 800;
+}
+
+.welcome{
+  font-size:20px;
+  font-weight: 600;
+}
+
+.user-div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  background-color: rgb(25, 20, 20);
+  color: rgb(30, 215, 96);;
+  padding: 10px;
+  border-radius: 15px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.500);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.500);
 }
 
 .nav-header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgb(25, 20, 20);
 }
 
+.link {
+  font-size: 20px;
+  font-weight: 800;
+  text-decoration: none;
+  text-align: center;
+  color: rgb(30, 215, 96);
+  box-shadow: -5px 0 5px rgba(255, 255, 255, 0.2);
+  /* margin: 0 40px; */
+  padding: 8px;
+  width: 33.3%;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
+}
+
+.link:hover {
+  background-color: rgb(230, 255, 230);
+  color: rgb(25, 20, 20);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: -5px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.search-div-container {
+  margin: auto;
+  padding: 30px;
+  color: rgb(25, 20, 20);
+  background-color: rgb(30, 215, 96);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 450px;
+  height: 250px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
+}
+
+.search-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-text {
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.album-alert {
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+
+.album-results {
+  width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgb(30, 215, 96);
+  color: rgb(25, 20, 20);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.album-div {
+  /* padding: 20px; */
+  margin: 10px;
+  background-color: rgb(230, 255, 230);
+  border-radius: 10px;
+  width: 200px;
+  min-height: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.500);
+  text-decoration: none;
+}
+
+.album-image {
+  width: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.album-title {
+  font-size: 18px;
+  font-weight: 600;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(25, 20, 20);
+  color: rgb(30, 215, 96);
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+}
+
+.album-artist {
+  padding: 20px 5px;
+  color: rgb(25, 20, 20);
+  font-weight: 600;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
