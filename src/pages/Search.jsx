@@ -77,7 +77,7 @@ class Search extends Component {
 
         { resultIsReady && (
           <section className="album-results">
-            <p className="album-alert">
+            <p className="search-result-title">
               { resultAlbums.length === 0 && 'Nenhum álbum foi encontrado'}
               { resultAlbums.length > 0
                 && `Resultado de álbuns de: ${search}`}
@@ -94,6 +94,7 @@ class Search extends Component {
                   key={ artistId }
                   to={ `/album/${collectionId}` }
                   data-testid={ `link-to-album-${collectionId}` }
+                  className="album-link"
                 >
                   <div
                     className="album-div"
