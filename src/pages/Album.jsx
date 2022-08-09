@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from '../components/Loading';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
@@ -16,20 +15,6 @@ class Album extends Component {
 
   componentDidMount() {
     this.gettingMusic();
-    this.getFavorites();
-  }
-
-  getFavorites = () => {
-    this.setState({
-      loading: true,
-    }, async () => {
-      // eslint-disable-next-line no-unused-vars
-      const favoriteSongs = await getFavoriteSongs();
-      this.setState({
-        loading: false,
-        // favoriteSongs,
-      });
-    });
   }
 
   gettingMusic = async () => {
@@ -86,7 +71,6 @@ class Album extends Component {
                 )}
               </div>
             </div>
-
           </div>
         )}
       </div>

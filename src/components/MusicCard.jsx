@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
@@ -9,7 +7,7 @@ class MusicCard extends Component {
   state= {
     loading: false,
     checked: false,
-    favoriteSongs: [],
+    // favoriteSongs: [],
   }
 
   componentDidMount() {
@@ -25,7 +23,7 @@ class MusicCard extends Component {
       const checkedFavorites = favoriteSongs.some((item) => item.trackId === trackId);
       this.setState({
         loading: false,
-        favoriteSongs,
+        // favoriteSongs,
         checked: checkedFavorites,
       });
     });
@@ -95,7 +93,6 @@ class MusicCard extends Component {
               </div>
             )}
           </div>
-
         </div>
       </div>
     );
@@ -106,6 +103,7 @@ MusicCard.propTypes = {
   trackName: propTypes.string.isRequired,
   previewUrl: propTypes.string.isRequired,
   trackId: propTypes.number.isRequired,
+  musicsArray: propTypes.instanceOf(Object).isRequired,
 };
 
 export default MusicCard;
