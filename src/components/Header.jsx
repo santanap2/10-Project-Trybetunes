@@ -37,7 +37,7 @@ class Header extends Component {
             TrybeTunes
           </Link>
           <div>
-            <p data-testid="header-user-name" className="welcome">
+            <div data-testid="header-user-name" className="welcome">
               { displayLoading ? <Loading /> : (
                 <div className="user-div">
                   <p>{username}</p>
@@ -48,7 +48,7 @@ class Header extends Component {
                   />
                 </div>
               )}
-            </p>
+            </div>
           </div>
         </div>
         <nav className="nav-header">

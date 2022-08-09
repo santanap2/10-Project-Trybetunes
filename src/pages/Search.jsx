@@ -83,7 +83,7 @@ class Search extends Component {
                 && `Resultado de álbuns de: ${search}`}
             </p>
             { resultAlbums.map((item) => {
-              const { artistId,
+              const {
                 artistName,
                 collectionId,
                 collectionName,
@@ -91,7 +91,7 @@ class Search extends Component {
 
               return (
                 <Link
-                  key={ artistId }
+                  key={ collectionId }
                   to={ `/album/${collectionId}` }
                   data-testid={ `link-to-album-${collectionId}` }
                   className="album-link"

@@ -3,16 +3,33 @@ import propTypes from 'prop-types';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import Loading from '../components/Loading';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
     albumInfo: [],
     name: '',
     album: '',
+    loading: false,
   }
 
   componentDidMount() {
     this.gettingMusic();
+    this.getFavorites();
+  }
+
+  getFavorites = () => {
+    this.setState({
+      loading: true,
+    }, async () => {
+      // eslint-disable-next-line no-unused-vars
+      const favoriteSongs = await getFavoriteSongs();
+      this.setState({
+        loading: false,
+        // favoriteSongs,
+      });
+    });
   }
 
   gettingMusic = async () => {
@@ -34,41 +51,44 @@ class Album extends Component {
   }
 
   render() {
-    const { name, album, image, albumInfo } = this.state;
+    const { name, album, image, albumInfo, loading } = this.state;
     const musicsArray = albumInfo.filter((item) => item.kind === 'song');
     const displayTracklist = musicsArray.length > 0;
     return (
       <div data-testid="page-album">
         <Header />
-        <div className="album-page">
-          <p className="search-result-title">Album</p>
+        { loading ? <Loading /> : (
+          <div className="album-page">
+            <p className="search-result-title">Album</p>
 
-          <div className="album-container">
+            <div className="album-container">
 
-            <div className="album-cover">
-              <img src={ image } alt="Capa do album" className="cover-image" />
-              <section data-testid="album-name" className="album">{ album }</section>
-              <section data-testid="artist-name" className="artist">{ name }</section>
+              <div className="album-cover">
+                <img src={ image } alt="Capa do album" className="cover-image" />
+                <section data-testid="album-name" className="album">{ album }</section>
+                <section data-testid="artist-name" className="artist">{ name }</section>
+              </div>
+
+              <div>
+                { displayTracklist && (
+                  musicsArray.map((item) => {
+                    const { trackName, previewUrl, trackId } = item;
+                    return (
+                      <MusicCard
+                        trackName={ trackName }
+                        previewUrl={ previewUrl }
+                        key={ trackName }
+                        trackId={ trackId }
+                        musicsArray={ musicsArray }
+                      />
+                    );
+                  })
+                )}
+              </div>
             </div>
 
-            <div>
-              { displayTracklist && (
-                musicsArray.map((item) => {
-                  const { trackName, previewUrl, trackId } = item;
-                  return (
-                    <MusicCard
-                      trackName={ trackName }
-                      previewUrl={ previewUrl }
-                      key={ trackName }
-                      trackId={ trackId }
-                    />
-                  );
-                })
-              )}
-            </div>
           </div>
-
-        </div>
+        )}
       </div>
     );
   }

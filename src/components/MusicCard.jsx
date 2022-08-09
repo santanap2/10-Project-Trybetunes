@@ -1,22 +1,52 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends Component {
   state= {
     loading: false,
     checked: false,
+    favoriteSongs: [],
   }
 
-  onClickCheckbox = async () => {
+  componentDidMount() {
+    this.getFavorites();
+  }
+
+  getFavorites = () => {
     this.setState({
       loading: true,
     }, async () => {
-      await addSong();
+      const favoriteSongs = await getFavoriteSongs();
+      const { trackId } = this.props;
+      const checkedFavorites = favoriteSongs.some((item) => item.trackId === trackId);
       this.setState({
         loading: false,
-        checked: true,
+        favoriteSongs,
+        checked: checkedFavorites,
+      });
+    });
+  }
+
+  onClickCheckbox = async ({ target }) => {
+    this.setState({
+      loading: true,
+    }, async () => {
+      const { musicsArray } = this.props;
+      const sameId = musicsArray.find((item) => Number(target.name) === item.trackId);
+      const { checked } = this.state;
+      if (checked === false) {
+        await addSong(sameId);
+      }
+      if (checked) {
+        await removeSong(sameId);
+      }
+      this.setState({
+        loading: false,
+        checked: !checked,
       });
     });
   }
@@ -57,7 +87,8 @@ class MusicCard extends Component {
                     id="favorite"
                     data-testid={ `checkbox-music-${trackId}` }
                     onClick={ this.onClickCheckbox }
-                    checked={ checked }
+                    defaultChecked={ checked }
+                    name={ trackId }
                   />
                   💚
                 </label>
@@ -74,7 +105,7 @@ class MusicCard extends Component {
 MusicCard.propTypes = {
   trackName: propTypes.string.isRequired,
   previewUrl: propTypes.string.isRequired,
-  trackId: propTypes.string.isRequired,
+  trackId: propTypes.number.isRequired,
 };
 
 export default MusicCard;
