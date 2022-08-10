@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
-import MusicCard from '../components/MusicCard';
 
 class Favorites extends Component {
   state = {
@@ -26,6 +25,28 @@ class Favorites extends Component {
     });
   }
 
+  onClickCheckbox = async ({ target }) => {
+    this.setState({
+      loading: true,
+    }, async () => {
+      const { favoriteSongs } = this.state;
+      const sameId = favoriteSongs.find((item) => Number(target.id) === item.trackId);
+      if (target.checked === false) {
+        await addSong(sameId);
+        target.checked = true;
+      }
+      if (target.checked) {
+        await removeSong(sameId);
+        target.checked = false;
+      }
+      const newFavs = await getFavoriteSongs();
+      this.setState({
+        loading: false,
+        favoriteSongs: newFavs,
+      });
+    });
+  }
+
   render() {
     const { loading, favoriteSongs } = this.state;
 
@@ -37,23 +58,64 @@ class Favorites extends Component {
           { loading ? <Loading /> : (
             favoriteSongs.map((item) => {
               const {
+                // artistName,
                 artworkUrl100,
-                artistName,
-                trackName,
-                trackId,
+                collectionName,
                 previewUrl,
-                collectionName } = item;
+                trackId,
+                trackName,
+              } = item;
               return (
                 <div key={ trackName } className="tracklist">
-                  <MusicCard
-                    trackName={ trackName }
-                    previewUrl={ previewUrl }
-                    trackId={ trackId }
-                    musicsArray={ favoriteSongs }
-                    artworkUrl100={ artworkUrl100 }
-                    artistName={ artistName }
-                    collectionName={ collectionName }
-                  />
+                  <div className="track-audio-container">
+
+                    <div className="track-container">
+                      {/* { `${trackName} - ${artistName}` } */}
+                      { trackName }
+                    </div>
+                    { (artworkUrl100 && collectionName) && (
+                      <img
+                        src={ artworkUrl100 }
+                        alt={ collectionName }
+                        className="favorites-album-cover"
+                      />
+                    )}
+                    <div className="audio-container">
+                      <audio
+                        data-testid="audio-component"
+                        src={ previewUrl }
+                        controls
+                        className="audio"
+                      >
+                        <track kind="captions" />
+                        O seu navegador não suporta o elemento
+                        {' '}
+                        <code>audio</code>
+                        .
+                      </audio>
+                    </div>
+
+                    <div className="favorite-div">
+                      { loading ? <Loading /> : (
+                        <div className="favorite">
+                          <label
+                            htmlFor={ trackId }
+                          >
+                            <input
+                              type="checkbox"
+                              id={ trackId }
+                              data-testid={ `checkbox-music-${trackId}` }
+                              onChange={ this.onClickCheckbox }
+                              onClick={ this.newFavorites }
+                              checked
+                              className="checkbox-fav"
+                            />
+                            Favorita
+                          </label>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               );
             })

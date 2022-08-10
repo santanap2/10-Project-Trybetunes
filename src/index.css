@@ -61,6 +61,7 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
   font-size: 16px;
   margin: 10px 0;
   text-align: center;
+  resize: none;
 }
 
 .text-input:hover {
@@ -372,7 +373,7 @@ flex-direction: row;
 width: 100px;
 }
 
-#favorite {
+.checkbox-fav {
   margin: 0 5px 0 10px;
 }
 
@@ -506,4 +507,75 @@ width: 100px;
   background-color: rgb(230, 255, 230);
   color: rgb(25, 20, 20);
   box-shadow: 0 0 10px black;
+}
+
+.profile-edit-container {
+padding: 0 0 50px 0;
+}
+
+.profile-edit-div {
+  margin: auto;
+  padding: 50px;
+  color: rgb(25, 20, 20);
+  background-color: rgb(30, 215, 96);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  /* height: 600px; */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.500);
+}
+
+.profile-edit-title{
+  font-size: 24px;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  text-align: center;
+  margin: 0 0 30px 0;
+  color: rgb(25, 20, 20);
+}
+
+.form-container {
+  padding: 20px;
+  display: flex;
+  flex-direction:column ;
+  width: 350px;
+  color: rgb(30, 215, 96);
+  background-color: rgb(25, 20, 20);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.textarea {
+  font-family: sans-serif;
+}
+.save-button {
+  width: 180px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.300);
+  color: rgb(25, 20, 20);
+  background-color: rgb(30, 215, 96);
+  font-size: 16px;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.500);
+  margin: 10px 0 0 0;
+}
+
+.save-button:hover {
+  color: rgb(25, 20, 20);
+  background-color: rgb(230, 255, 230);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.500);
+}
+
+.save-button:disabled {
+  opacity: 40%;
 }

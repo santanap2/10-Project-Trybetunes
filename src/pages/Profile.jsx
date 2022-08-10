@@ -47,7 +47,7 @@ class Profile extends Component {
                 />
                 <div className="user-email-container">
                   <p className="username">{name}</p>
-                  <p className="email">{ email || 'exemploemail@email.com'}</p>
+                  <p className="email">{ email }</p>
                 </div>
               </div>
 

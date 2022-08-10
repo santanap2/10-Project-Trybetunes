@@ -32,7 +32,7 @@ class MusicCard extends Component {
       loading: true,
     }, async () => {
       const { musicsArray } = this.props;
-      const sameId = musicsArray.find((item) => Number(target.name) === item.trackId);
+      const sameId = musicsArray.find((item) => Number(target.id) === item.trackId);
       const { checked } = this.state;
       if (checked === false) {
         await addSong(sameId);
@@ -49,29 +49,17 @@ class MusicCard extends Component {
 
   render() {
     const {
-      trackName,
-      previewUrl,
-      trackId,
-      artworkUrl100,
-      // artistName,
-      collectionName } = this.props;
+      trackName, previewUrl, trackId } = this.props;
     const { loading, checked } = this.state;
+
     return (
       <div className="tracklist">
 
         <div className="track-audio-container">
 
           <div className="track-container">
-            {/* { artistName !== false ? `${trackName} - ${artistName}` : trackName } */}
             { trackName }
           </div>
-          { (artworkUrl100 && collectionName) && (
-            <img
-              src={ artworkUrl100 }
-              alt={ collectionName }
-              className="favorites-album-cover"
-            />
-          )}
           <div className="audio-container">
             <audio
               data-testid="audio-component"
@@ -91,16 +79,17 @@ class MusicCard extends Component {
             { loading ? <Loading /> : (
               <div className="favorite">
                 <label
-                  htmlFor="favorite"
+                  htmlFor={ trackId }
                 >
                   <input
                     type="checkbox"
-                    id="favorite"
+                    id={ trackId }
                     data-testid={ `checkbox-music-${trackId}` }
                     onChange={ this.onClickCheckbox }
                     onClick={ this.newFavorites }
                     defaultChecked={ checked }
                     name={ trackId }
+                    className="checkbox-fav"
                   />
                   { checked ? 'Favorita' : '💚' }
                 </label>
@@ -118,15 +107,6 @@ MusicCard.propTypes = {
   previewUrl: propTypes.string.isRequired,
   trackId: propTypes.number.isRequired,
   musicsArray: propTypes.instanceOf(Object).isRequired,
-  // artistName: propTypes.string,
-  artworkUrl100: propTypes.string,
-  collectionName: propTypes.string,
-};
-
-MusicCard.defaultProps = {
-  // artistName: propTypes.string,
-  artworkUrl100: propTypes.string,
-  collectionName: propTypes.string,
 };
 
 export default MusicCard;
