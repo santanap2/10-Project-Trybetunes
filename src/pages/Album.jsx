@@ -65,6 +65,8 @@ class Album extends Component {
                         key={ trackName }
                         trackId={ trackId }
                         musicsArray={ musicsArray }
+                        artworkUrl100={ false }
+                        artistName={ false }
                       />
                     );
                   })
