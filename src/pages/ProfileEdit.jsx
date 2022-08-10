@@ -13,7 +13,6 @@ class ProfileEdit extends Component {
       description: '',
       email: '',
     },
-    buttonDisabled: true,
   }
 
   componentDidMount() {
@@ -39,38 +38,26 @@ class ProfileEdit extends Component {
         [target.name]: target.value,
       },
     }));
-    this.isButtonDisabled();
   }
 
-  isButtonDisabled = () => {
-    const { loggedUser } = this.state;
-    const { name, email, description, image } = loggedUser;
-    const disabled = name.length < 1
-      || email.length < 1
-      || description.length < 1
-      || image.length < 1;
-    this.setState({
-      buttonDisabled: disabled,
-    });
-  }
-
-  updateUserInfo = () => {
+  updateUserInfo = async () => {
+    const { history } = this.props;
     this.setState({
       loading: true,
     }, async () => {
       const { loggedUser } = this.state;
-      const { history } = this.props;
       await updateUser(loggedUser);
-      this.setState({
-        loading: false,
-      });
       history.push('/profile');
     });
   }
 
   render() {
-    const { loading, buttonDisabled, loggedUser } = this.state;
+    const { loading, loggedUser } = this.state;
     const { name, email, description, image } = loggedUser;
+    const disabled = name.length < 1
+      || email.length < 1
+      || description.length < 1
+      || image.length < 1;
     return (
       <div data-testid="page-profile-edit" className="profile-edit-container">
         { loggedUser && ''}
@@ -138,7 +125,7 @@ class ProfileEdit extends Component {
                   type="button"
                   data-testid="edit-button-save"
                   className="save-button"
-                  disabled={ buttonDisabled }
+                  disabled={ disabled }
                   onClick={ this.updateUserInfo }
                 >
                   Alterar
