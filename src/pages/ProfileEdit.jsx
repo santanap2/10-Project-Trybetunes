@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
-import { getUser } from '../services/userAPI';
+import { getUser, updateUser } from '../services/userAPI';
 
 class ProfileEdit extends Component {
   state = {
@@ -17,7 +18,6 @@ class ProfileEdit extends Component {
 
   componentDidMount() {
     this.gettingUser();
-    // this.isButtonDisabled();
   }
 
   gettingUser = () => {
@@ -33,27 +33,44 @@ class ProfileEdit extends Component {
   }
 
   handleChange = ({ target }) => {
-    this.setState({
+    this.setState((prevState) => ({
       loggedUser: {
+        ...prevState.loggedUser,
         [target.name]: target.value,
       },
+    }));
+    this.isButtonDisabled();
+  }
+
+  isButtonDisabled = () => {
+    const { loggedUser } = this.state;
+    const { name, email, description, image } = loggedUser;
+    const disabled = name.length < 1
+      || email.length < 1
+      || description.length < 1
+      || image.length < 1;
+    this.setState({
+      buttonDisabled: disabled,
     });
   }
 
-  // isButtonDisabled = () => {
-  //   const { loggedUser } = this.state;
-  //   const { name, email, description, image } = loggedUser;
-  //   const disabled = (name.length < 1) && (email.length < 1);
-  //   console.log(disabled);
-  //   //   && (description.length < 1)
-  //   //   && (image.length < 1);
-  //   // this.setState({
-  //   //   buttonDisabled: disabled,
-  //   // });
-  // }
+  updateUserInfo = () => {
+    this.setState({
+      loading: true,
+    }, async () => {
+      const { loggedUser } = this.state;
+      const { history } = this.props;
+      await updateUser(loggedUser);
+      this.setState({
+        loading: false,
+      });
+      history.push('/profile');
+    });
+  }
 
   render() {
     const { loading, buttonDisabled, loggedUser } = this.state;
+    const { name, email, description, image } = loggedUser;
     return (
       <div data-testid="page-profile-edit" className="profile-edit-container">
         { loggedUser && ''}
@@ -73,6 +90,7 @@ class ProfileEdit extends Component {
                     className="text-input"
                     name="name"
                     onChange={ this.handleChange }
+                    value={ name }
                   />
                 </label>
                 <label htmlFor="edit-email">
@@ -84,6 +102,7 @@ class ProfileEdit extends Component {
                     className="text-input"
                     name="email"
                     onChange={ this.handleChange }
+                    value={ email }
                   />
                 </label>
 
@@ -98,6 +117,7 @@ class ProfileEdit extends Component {
                     maxLength={ 100 }
                     name="description"
                     onChange={ this.handleChange }
+                    value={ description }
                   />
                 </label>
 
@@ -110,6 +130,7 @@ class ProfileEdit extends Component {
                     className="text-input"
                     name="image"
                     onChange={ this.handleChange }
+                    value={ image }
                   />
                 </label>
 
@@ -118,6 +139,7 @@ class ProfileEdit extends Component {
                   data-testid="edit-button-save"
                   className="save-button"
                   disabled={ buttonDisabled }
+                  onClick={ this.updateUserInfo }
                 >
                   Alterar
                 </button>
@@ -130,4 +152,7 @@ class ProfileEdit extends Component {
   }
 }
 
+ProfileEdit.propTypes = {
+  history: propTypes.shape({ push: propTypes.func.isRequired }).isRequired,
+};
 export default ProfileEdit;

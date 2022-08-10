@@ -55,7 +55,11 @@ class Favorites extends Component {
         <Header />
         <div className="favorites-div">
           <p className="favorites-title">Favoritas</p>
-          { loading ? <Loading /> : (
+          { loading ? (
+            <div className="loading-container">
+              <Loading />
+            </div>
+          ) : (
             favoriteSongs.map((item) => {
               const {
                 // artistName,

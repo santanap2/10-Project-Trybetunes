@@ -57,7 +57,10 @@ class Profile extends Component {
 
               <div className="button-container">
                 <Link to="/profile/edit">
-                  <button type="button" className="edit-button">
+                  <button
+                    type="button"
+                    className="edit-button"
+                  >
                     Editar perfil
                   </button>
                 </Link>
